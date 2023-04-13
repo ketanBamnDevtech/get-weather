@@ -1,2 +1,16 @@
-<h1>WeatherDashboards#index</h1>
-<p>Find me in app/views/weather_dashboards/index.html.erb</p>
+<% if true %>
+  <h3 class>Your Weather Cards</h3><hr/>
+  <div class="d-flex">
+    <%= render partial: 'weather_card',
+                locals: { location: @city_weather["location"], weather_current: @city_weather["current"],
+                          weather_forecast: @city_weather["forecast"]["forecastday"] } %>
+  </div>
+
+<% else %>
+  <div class="m-5 text-center">
+    <h5>We don't find any weather card add to you account.</h5>
+    <p>Get start by adding one
+      <%= link_to 'Add Weather Card', new_weather_dashboard_path %>
+    </p>
+  </div>
+<% end %>
