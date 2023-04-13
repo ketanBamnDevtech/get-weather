@@ -14,3 +14,10 @@
  *= require_tree .
  *= require_self
  */
+
+.btn-to-link-navbar {
+  background: #20252900;
+  padding: 0;
+  border: 0;
+  margin: 0px;
+}
