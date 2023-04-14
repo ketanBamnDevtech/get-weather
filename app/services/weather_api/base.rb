@@ -5,7 +5,7 @@ module WeatherApi
     MAX_FORCAST_DAYS = 15
 
     def initialize(city:, days: 1)
-      @api_key = 'ca01c51f9e684144ae9115313231304'
+      @api_key = Rails.application.credentials[:weather_api][:api_key]
       @city = city
       @days = days
     end
