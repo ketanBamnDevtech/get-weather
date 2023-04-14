@@ -1,10 +1,13 @@
 <% if true %>
   <h3 class>Your Weather Cards</h3><hr/>
-  <div class="d-flex">
-    <%= render partial: 'weather_card',
-                locals: { location: @city_weather["location"], weather_current: @city_weather["current"],
-                          weather_forecast: @city_weather["forecast"]["forecastday"] } %>
-  </div>
+
+  <% @all_cities_weather.each do |city, weather_data| %>
+    <div class="d-flex">
+      <%= render partial: 'weather_card',
+                  locals: { location: weather_data["location"], weather_current: weather_data["current"],
+                            weather_forecast: weather_data["forecast"]["forecastday"] } %>
+    </div>
+  <% end %>
 
 <% else %>
   <div class="m-5 text-center">

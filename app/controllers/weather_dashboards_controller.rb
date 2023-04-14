@@ -1,9 +1,11 @@
 class WeatherDashboardsController < ApplicationController
   def index
-    @city = 'Indore'
-    @country = 'India'
-    @days = 3
-    @city_weather = WeatherApi::GetWeatherData.new(city: @city).call
+    city_names = WeatherDashboard.city_names(current_user.id)
+
+    @all_cities_weather = {}
+    city_names.each  do |city|
+      @all_cities_weather[city] = WeatherApi::GetWeatherData.new(city: city).call
+    end
   end
 
   def new
