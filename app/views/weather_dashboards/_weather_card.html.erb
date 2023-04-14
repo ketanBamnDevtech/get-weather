@@ -5,7 +5,9 @@
         <p class="mb-0"><%= location["name"] %>, <%= location["region"] %>, <%= location["country"] %></p>
         <p><%= Time.at( location["localtime_epoch"] ).strftime("%A, %B %d, %Y | %H:%M%p") %></p>
       </div>
-      <div class=""><button class="btn btn-outline-light">Delete</button></div>
+      <div class="">
+        <%= button_to 'Delete', weather_dashboard_path(id: 1, city: city), method: :delete, class: 'btn btn-outline-light' %>
+      </div>
     </div>
     <div class="row py-4">
       <div class="col-md-7 d-flex  mx-auto">

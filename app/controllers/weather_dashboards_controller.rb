@@ -24,7 +24,11 @@ class WeatherDashboardsController < ApplicationController
     end
   end
 
-  def delete; end
+  def destroy
+    @weather_dashboard = WeatherDashboard.where(user_id: current_user.id, city: params[:city]).first
+    @weather_dashboard.destroy
+    redirect_to weather_dashboards_path
+  end
 
   def update_state_options
     states = CS.states(params[:country_code]).sort_by { |_key, value| value }.map { |k, v| [v, k.to_s] }

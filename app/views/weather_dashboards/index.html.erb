@@ -7,7 +7,8 @@
         <%= render partial: 'weather_card',
                     locals: { location: weather_data["location"], weather_current: weather_data["current"],
                               weather_forecast_today: weather_data["forecast"]["forecastday"].first,
-                              weather_forecast_future: weather_data["forecast"]["forecastday"][1..-1] } %>
+                              weather_forecast_future: weather_data["forecast"]["forecastday"][1..-1],
+                              city: city } %>
       </div>
 
   <% end %>
