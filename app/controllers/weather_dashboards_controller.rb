@@ -1,10 +1,10 @@
 class WeatherDashboardsController < ApplicationController
   def index
-    city_names = WeatherDashboard.city_names(current_user.id)
+    city_names_days = WeatherDashboard.city_names_and_days(current_user.id)
 
     @all_cities_weather = {}
-    city_names.each  do |city|
-      @all_cities_weather[city] = WeatherApi::GetWeatherData.new(city: city).call
+    city_names_days.each  do |sub_array|
+      @all_cities_weather[sub_array[0]] = WeatherApi::GetWeatherData.new(city: sub_array[0], days: sub_array[1]).call
     end
   end
 

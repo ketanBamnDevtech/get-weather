@@ -5,7 +5,7 @@ class WeatherDashboard < ApplicationRecord
   validates :forecast_days, inclusion: { in: 1..8 }
   validate :verify_similar_weather_cards_should_not_exist?
 
-  scope :city_names, ->(user_id){ where(user_id: user_id).pluck(:city) }
+  scope :city_names_and_days, ->(user_id){ where(user_id: user_id).pluck(:city, :forecast_days) }
 
   private
 

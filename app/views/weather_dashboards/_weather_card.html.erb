@@ -1,8 +1,57 @@
-<div class="card m-4" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title"><%= location["name"] %></h5>
-    <h6 class="card-subtitle mb-2 text-muted"><%= location["country"] %></h6>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="card-link">Delete</a>
+<div class="weatherInfo card w-100 border-0">
+  <div class="card-body text-white">
+    <p class="mb-0"><%= location["name"] %>, <%= location["region"] %>, <%= location["country"] %></p>
+    <p><%= Time.at( location["localtime_epoch"] ).strftime("%A, %B %d, %Y | %H:%M%p") %></p>
+    <div class="row py-4">
+      <div class="col-md-7 d-flex  mx-auto">
+        <div class="me-4"><img src="<%= weather_current["condition"]["icon"]%>" width="50px" class="mb-4"><p><%= weather_current["condition"]["text"]%></p></div>
+        <div class="d-flex"><h1><%= weather_current["temp_c"]%></h1>°<span class="text-decoration-underline ms-1">C</span></div>
+      </div>
+      <div class="col-md-4">
+        <p class="mb-2">Humidity :<span class="fw-500 ps-2"><%= weather_current["humidity"]%>%</span></p>
+        <p class="mb-2">Wind  :<span class="fw-500 ps-2"><%= weather_current["wind_kph"]%> kmph</span></p>
+        <p class="mb-2">Feels like: <span class="fw-500 ps-2"><%= weather_current["feelslike_c"]%>°</span></p>
+      </div>
+    </div>
+    <div class="weather-grid">
+      <div class="weather-card mb-4">
+        <img src="<%= weather_forecast_today["hour"][10]["condition"]["icon"]%>" width="35px" class="mb-3">
+        <div>
+            <div><%= weather_forecast_today["hour"][10]["temp_c"]%>°</div>
+          <div>10:00 AM</div>
+        </div>
+      </div>
+      <div class="weather-card mb-4">
+        <img src="<%= weather_forecast_today["hour"][11]["condition"]["icon"]%>" width="35px" class="mb-3">
+        <div class="temps">
+          <div>
+            <div><%= weather_forecast_today["hour"][11]["temp_c"]%>°</div>
+            <div>11:00 AM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="weather-grid weather-hover">
+      <% if weather_forecast_future.present? %>
+        <% weather_forecast_future.each do |forecast| %>
+          <div class="weather-card">
+            <p class="fw-500"><%= Time.at( forecast["date_epoch"] ).strftime("%a") %></p>
+            <img src="<%= forecast["day"]["condition"]["icon"] %>" width="35px" class="mb-3">
+            <div class="d-flex justify-content-around mb-2">
+              <div><%= forecast["day"]["maxtemp_c"] %>°</div>
+              <div><%= forecast["day"]["mintemp_c"] %>°</div>
+            </div>
+            <div class="d-flex justify-content-around mb-2">
+              <div><img src="<%= forecast["hour"][9]["condition"]["icon"] %>"  width="15px"></div>
+              <div>09:00</div>
+            </div>
+            <div class="d-flex justify-content-around mb-2">
+              <div><img src="<%= forecast["hour"][21]["condition"]["icon"] %>" width="15px"></div>
+              <div>21:00</div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

@@ -1,11 +1,12 @@
-<% if true %>
+<% if @all_cities_weather.present? %>
   <h3 class>Your Weather Cards</h3><hr/>
 
   <% @all_cities_weather.each do |city, weather_data| %>
     <div class="d-flex">
       <%= render partial: 'weather_card',
                   locals: { location: weather_data["location"], weather_current: weather_data["current"],
-                            weather_forecast: weather_data["forecast"]["forecastday"] } %>
+                            weather_forecast_today: weather_data["forecast"]["forecastday"].first,
+                            weather_forecast_future: weather_data["forecast"]["forecastday"][1..-1] } %>
     </div>
   <% end %>
 

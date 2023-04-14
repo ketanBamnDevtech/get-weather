@@ -1,14 +1,22 @@
 <%= form_with model: @weather_dashboard do |wd| %>
 
-  <div class="m-2">
-    <ul>
       <% if @weather_dashboard.errors.any? %>
-        <% @weather_dashboard.errors.full_messages.each do |message|%>
-          <li><%= message %> </li>
-        <%end%>
+        <div class="m-2">
+          <div id="error_explanation" data-turbo-cache="false">
+            <h2>
+              <%= I18n.t("errors.messages.not_saved",
+                        count: @weather_dashboard.errors.count,
+                        resource: @weather_dashboard.class.model_name.human.downcase)
+              %>
+            </h2>
+            <ul  class="text-danger">
+              <% @weather_dashboard.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
       <%end%>
-    </ul>
-  </div>
 
   <%= wd.select :country, @countries, { selected: @weather_dashboard.country, include_blank: 'Select country' }, { class: 'form-select' } %>
   <%= wd.select :state, [], { selected: @weather_dashboard.state, include_blank: 'Select state' }, { class: 'form-select' } %>
