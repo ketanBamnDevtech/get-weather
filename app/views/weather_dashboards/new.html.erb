@@ -17,12 +17,24 @@
           </div>
         </div>
       <%end%>
-
-  <%= wd.select :country, @countries, { selected: @weather_dashboard.country, include_blank: 'Select country' }, { class: 'form-select' } %>
-  <%= wd.select :state, [], { selected: @weather_dashboard.state, include_blank: 'Select state' }, { class: 'form-select' } %>
-  <%= wd.select :city, [], { selected: @weather_dashboard.city, include_blank: 'Select city' }, { class: 'form-select' } %>
-  <%= wd.select :forecast_days, Array(1..8), { selected: @weather_dashboard.forecast_days, include_blank: 'Select days of forecast' }, { class: 'form-select' } %>
-  <%= wd.submit 'Save Weather Card' %>
+      <h2 class="text-center mt-4 mb-4">Add Weather Card</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="form-group mb-2">
+          <%= wd.select :country, @countries, { selected: @weather_dashboard.country, include_blank: 'Select country' }, { class: 'form-select' } %>
+          </div>
+          <div class="form-group mb-2">
+          <%= wd.select :state, [], { selected: @weather_dashboard.state, include_blank: 'Select state' }, { class: 'form-select' } %>
+          </div>
+          <div class="form-group mb-2">
+          <%= wd.select :city, [], { selected: @weather_dashboard.city, include_blank: 'Select city' }, { class: 'form-select' } %>
+          </div>
+          <div class="form-group mb-2">
+          <%= wd.select :forecast_days, Array(1..8), { selected: @weather_dashboard.forecast_days, include_blank: 'Select days of forecast' }, { class: 'form-select' } %>
+          </div>
+          <%= wd.submit 'Save Weather Card', { class: 'btn btn-outline-info mt-2' }%>
+        </div>
+      </div>
 <% end %>
 
 <script>

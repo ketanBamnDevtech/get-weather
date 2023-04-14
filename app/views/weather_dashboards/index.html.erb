@@ -1,15 +1,17 @@
 <% if @all_cities_weather.present? %>
   <h3 class>Your Weather Cards</h3><hr/>
-
+<div class="row">
   <% @all_cities_weather.each do |city, weather_data| %>
-    <div class="d-flex">
-      <%= render partial: 'weather_card',
-                  locals: { location: weather_data["location"], weather_current: weather_data["current"],
-                            weather_forecast_today: weather_data["forecast"]["forecastday"].first,
-                            weather_forecast_future: weather_data["forecast"]["forecastday"][1..-1] } %>
-    </div>
-  <% end %>
 
+      <div class="col-md-6 col-sm-12 col-lg-6  mb-3">
+        <%= render partial: 'weather_card',
+                    locals: { location: weather_data["location"], weather_current: weather_data["current"],
+                              weather_forecast_today: weather_data["forecast"]["forecastday"].first,
+                              weather_forecast_future: weather_data["forecast"]["forecastday"][1..-1] } %>
+      </div>
+
+  <% end %>
+ </div>
 <% else %>
   <div class="m-5 text-center">
     <h5>We don't find any weather card add to you account.</h5>

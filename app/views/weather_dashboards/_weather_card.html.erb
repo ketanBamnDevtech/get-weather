@@ -1,7 +1,12 @@
 <div class="weatherInfo card w-100 border-0">
   <div class="card-body text-white">
-    <p class="mb-0"><%= location["name"] %>, <%= location["region"] %>, <%= location["country"] %></p>
-    <p><%= Time.at( location["localtime_epoch"] ).strftime("%A, %B %d, %Y | %H:%M%p") %></p>
+    <div class="d-flex justify-content-between align-items-start">
+      <div>
+        <p class="mb-0"><%= location["name"] %>, <%= location["region"] %>, <%= location["country"] %></p>
+        <p><%= Time.at( location["localtime_epoch"] ).strftime("%A, %B %d, %Y | %H:%M%p") %></p>
+      </div>
+      <div class=""><button class="btn btn-outline-light">Delete</button></div>
+    </div>
     <div class="row py-4">
       <div class="col-md-7 d-flex  mx-auto">
         <div class="me-4"><img src="<%= weather_current["condition"]["icon"]%>" width="50px" class="mb-4"><p><%= weather_current["condition"]["text"]%></p></div>
@@ -13,7 +18,7 @@
         <p class="mb-2">Feels like: <span class="fw-500 ps-2"><%= weather_current["feelslike_c"]%>°</span></p>
       </div>
     </div>
-    <div class="weather-grid">
+    <div class="weather-grid weather-grid-top">
       <div class="weather-card mb-4">
         <img src="<%= weather_forecast_today["hour"][10]["condition"]["icon"]%>" width="35px" class="mb-3">
         <div>
@@ -35,8 +40,8 @@
       <% if weather_forecast_future.present? %>
         <% weather_forecast_future.each do |forecast| %>
           <div class="weather-card">
-            <p class="fw-500"><%= Time.at( forecast["date_epoch"] ).strftime("%a") %></p>
-            <img src="<%= forecast["day"]["condition"]["icon"] %>" width="35px" class="mb-3">
+            <p class="fw-500  mb-1"><%= Time.at( forecast["date_epoch"] ).strftime("%a") %></p>
+            <img src="<%= forecast["day"]["condition"]["icon"] %>" width="35px" class="mb-1">
             <div class="d-flex justify-content-around mb-2">
               <div><%= forecast["day"]["maxtemp_c"] %>°</div>
               <div><%= forecast["day"]["mintemp_c"] %>°</div>

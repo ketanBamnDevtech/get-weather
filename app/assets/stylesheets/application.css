@@ -67,14 +67,19 @@ body {
 
 .weather-grid{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(12%, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(15%, 1fr));
   grid-gap: 5px;
 }
 
+.weather-grid-top{
+  grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+}
+
 .weather-grid > div {
-  padding: .5em 2em;
+  padding: .5em 0.2em;
   color: #ffffff;
   text-align: center;
+  font-size: 12px;
 }
 
 .weather-hover .weather-card:hover{
