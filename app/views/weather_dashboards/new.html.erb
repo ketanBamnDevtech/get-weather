@@ -1,2 +1,58 @@
-<h1>WeatherDashboards#new</h1>
-<p>Find me in app/views/weather_dashboards/new.html.erb</p>
+<%= form_with model: @weather_dashboard do |wd| %>
+
+  <div class="m-2">
+    <ul>
+      <% if @weather_dashboard.errors.any? %>
+        <% @weather_dashboard.errors.full_messages.each do |message|%>
+          <li><%= message %> </li>
+        <%end%>
+      <%end%>
+    </ul>
+  </div>
+
+  <%= wd.select :country, @countries, { selected: @weather_dashboard.country, include_blank: 'Select country' }, { class: 'form-select' } %>
+  <%= wd.select :state, [], { selected: @weather_dashboard.state, include_blank: 'Select state' }, { class: 'form-select' } %>
+  <%= wd.select :city, [], { selected: @weather_dashboard.city, include_blank: 'Select city' }, { class: 'form-select' } %>
+  <%= wd.select :forecast_days, Array(1..8), { selected: @weather_dashboard.forecast_days, include_blank: 'Select days of forecast' }, { class: 'form-select' } %>
+  <%= wd.submit 'Save Weather Card' %>
+<% end %>
+
+<script>
+  $( document ).ready(function() {
+    $('#weather_dashboard_country').on('change', function() {
+      $.ajax({
+        method: "GET",
+        dataType: "JSON",
+        url: "<%= update_state_options_weather_dashboards_path %>",
+        data: { country_code: $(this).val() }
+      }).done(function( data ) {
+        updateOptions($("#weather_dashboard_state"), data.states)
+        updateOptions($("#weather_dashboard_city"), data.cities)
+      }).fail(function(error) {
+        console.error(error)
+      });
+    });
+
+    $('#weather_dashboard_state').on('change', function() {
+      let country_code = $('#weather_dashboard_country').val();
+
+      $.ajax({
+        method: "GET",
+        dataType: "JSON",
+        url: "<%= update_city_options_weather_dashboards_path %>",
+        data: { country_code: country_code, state_code: $(this).val() }
+      }).done(function( data ) {
+        updateOptions($("#weather_dashboard_city"), data.cities)
+      }).fail(function(error) {
+        console.error(error)
+      });
+    });
+
+    function updateOptions(selectField, options){
+      selectField.empty();
+      options.forEach( function(option) {
+        selectField.append($("<option></option>").attr("value", option[1]).text(option[0]));
+      });
+    }
+  });
+</script>
